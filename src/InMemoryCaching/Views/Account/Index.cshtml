@@ -1,0 +1,15 @@
+﻿@*
+        For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+
+    @{var user = InMemoryCaching.Services.SessionManager.GetLoginInfo(Context.Request.HttpContext.Session);
+        @if (user != null)
+        {
+            <div>yyyyyyyy</div>
+        }
+        else {
+            <div>nnnnnnnnnn</div>
+        }
+
+
+
+    }*@

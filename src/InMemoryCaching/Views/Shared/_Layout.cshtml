@@ -1,0 +1,168 @@
+﻿@inject InMemoryCaching.Models.FormattingService Formatter
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] البوم عکس</title>
+
+
+    <!-- Scripts -->
+    @*<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>*@
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+   
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+    <script src="~/delajax.js"></script>
+    <script type="text/javascript">
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+        $(window).on("load", function () {
+            var u = getRandomColor();
+            $("#footer").css("background-color", u);
+            DatePersion();
+           // ShowPhotosCommentContent()
+        });
+
+        $(document).ready(function () {
+            var ww; var hh;
+            var cam;// alert("");
+            $(window).resize(function () {
+
+                DatePersion();
+               // ShowPhotosCommentContent()
+            });
+        });
+        function DatePersion()
+        {
+            w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+            //$("#div_1").css({ 'width': w + "px" });
+            if (w < 820) {
+
+                $("#DivDatePersion").css("display", "none");
+            }
+            else {
+                $("#DivDatePersion").css("display", "block");
+
+            }
+        }
+
+
+
+    </script>
+
+  
+
+    <style>
+
+       * {
+    margin: 0;
+}
+html, body {
+    height: 84%;
+    
+}
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -35px; /* the bottom margin is the negative value of the footer's height */
+}
+.footer, .push {
+    height: 35px; /* .push must be the same height as .footer */
+}
+    </style>
+</head>
+<body style="background-color:">
+    <div class="page-heading" dir="rtl" style="background-color:#4ca0dd">
+                
+            <div id="DivDatePersion" class="hidden-xs  col-sm-3 col-md-3 col-lg-3" dir="ltr" style="background-color:">
+                <div>
+                    <script type="text/javascript" src="http://1abzaar.ir/abzar/tools/weather/hava.php?color=DADDCE&shahr=018&bg=4CA0DD&kc=BBBBBB&kadr=0">
+
+                    </script>
+
+                </div>
+                @Html.Raw(string.Format(@"<span style='color:white'>{0}</span>", Formatter.AsLongReadableDate((DateTime)DateTime.Now)))
+            </div>
+            <div>
+                <img src="~/images/golden.jpg" class="img-responsive pull-rigth" style="height:155px;width:600px;" />
+            </div>
+       
+</div>
+   
+    
+
+      
+        <div class="navbar navbar-inverse" style="margin-top:0px">
+            <div class="container" style="background-color:">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @*<a asp-controller="Home" asp-action="Index" class="navbar-brand">PNK</a>*@
+                </div>
+                <div class="navbar-collapse collapse">
+
+                    @await Html.PartialAsync("_LoginPartial")
+                    <ul class="nav navbar-nav">
+                        <li><a asp-controller="Home" asp-action="About" class="navbar-item"> درباره ما  </a></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">مدیریت پنل <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li dir="rtl"><a asp-controller="Manage" asp-action="CreateAlbum" class="navbar-item" dir="rtl">  ایجاد البوم جدید </a></li>
+                                <li><a asp-controller="Manage" asp-action="ShowAlbums" class="navbar-item"> نمایش البوم ها </a></li>
+                                <li><a asp-controller="Manage" asp-action="CommentStatus" class="navbar-item">   نظرات  </a></li>
+                                <li><a asp-controller="Manage" asp-action="PermissionUsers" class="navbar-item">   کاربران  </a></li>
+
+                            </ul>
+                        </li>
+                        <li><a asp-controller="Home" asp-action="index" class="navbar-item"> خانه</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    
+      
+   
+
+    <div class="body-content wrapper">
+      
+            @RenderBody()
+
+
+
+            <div class="push">
+                <div></div>
+
+            </div>
+      
+
+    </div>
+    <div class="footer" id="footer">
+        <div  align="center" style="padding-top:8px">
+            <div>&copy;   عکس های البوم</div>
+        </div>
+    </div>
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

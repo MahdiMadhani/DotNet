@@ -1,0 +1,177 @@
+﻿@model InMemoryCaching.Models.PhotosCommentViewModel
+@addTagHelper "*, Microsoft.AspNet.Mvc.TagHelpers"
+@{
+    Layout = "~/views/shared/_layout.cshtml";
+}
+
+@section scripts{
+    <script>
+
+        function FunToggle(id) {
+            $("#" + id).next().toggle();
+
+        }
+        $(window).on("load", function () {
+            ShowPhotosCommentContent();
+        });
+
+        $(document).ready(function () {
+      
+            $(window).resize(function () {
+                ShowPhotosCommentContent();
+            });
+        });
+        function ShowPhotosCommentContent() {
+            w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+            if (w < 400) {
+                $(".Content").attr('style', 'max-width:230px');
+               // alert("1")
+            }
+            if (w > 400 && w < 480) {
+                $(".Content").attr('style', 'max-width:330px');
+              //  alert("2 "+w)
+            }
+            if (w > 480 && w < 550) {
+                $(".Content").attr('style', 'max-width:400px');
+                // alert("3 "+w)
+            }
+
+            if (w > 550 && w < 700) {
+                $(".Content").attr('style', 'max-width:480px');
+               //  alert("4 "+w)
+            }
+            if (w > 700) {
+                $(".Content").attr('style', 'max-width:600px');
+                  //alert("5 "+w)
+            }
+  
+
+        }
+
+
+    </script>
+    <style>
+
+    .Content
+     {
+         word-wrap: break-word;max-width:400px ;text-align:justify;width:600px ;background-color:  ;
+     }
+</style>
+}
+
+
+<div class="container">
+
+    <table class="table" id="tb" dir="rtl">
+
+        <tbody>
+            @{
+// foreach (var item in Model.PhotoId)
+// {
+
+                <tr>
+                    <td>
+                        <img src="@Url.Content(@InMemoryCaching.App_Code.Utils.GenerateHttpResponseImageOntheFly(@Model.PhotoId.ImgData, "jpg"))" class="img-responsive" asp-append-version="true" width="400" height="300" style="border:1px solid gray;direction:ltr" alt="Profile Picture">
+
+                    </td>
+                    <td class="form-group"></td>
+                </tr>
+                <tr id="kk" style="display:">
+                    <td>
+
+                        <table class="table--responsive">
+                            <tbody>
+                                @{
+                                    foreach (var CommentLst in Model.CommentLst)
+                                    {
+                                        if (Model.PhotoId.Id == CommentLst.PhotoId)
+                                        {
+                                            <tr>
+                                                <td class="ShowPhotosCommentTdContentt" style="">
+                                                   
+                                                        @CommentLst.WriterName
+                                                        <br />
+                                                        @CommentLst.WriterEmail
+                                                        <br />   
+                                                    <div class="Content" style="">
+
+                                                        @CommentLst.Content
+                                                        
+                                                    </div>                                                              
+                                                        <hr />
+                                                </td>
+                                            </tr>
+
+                                        }//end if
+                                         // else { break; }
+                                    }}
+
+                            </tbody>
+                        </table>
+
+
+
+                    </td>
+                </tr>
+                                    //}
+            }
+        </tbody>
+
+    </table>
+
+
+
+    <div class="panel  panel-info" dir="rtl">
+        <div class="panel-heading">ارسال نظر </div>
+        <div class="panel-body">
+
+            @{
+                using (Html.BeginForm("InsertCommentInComment", "home", FormMethod.Post))
+
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group">
+                        <label asp-for="Comment.WriterEmail">ایمیل</label>
+                        <input asp-for="Comment.WriterEmail " placeholder="ایمیل" class="form-control empty-check-befor-submit" style="direction:ltr; text-align:right;width:150px" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Comment.WriterName">نام</label>
+                        <input asp-for="Comment.WriterName " placeholder="نام" class="form-control empty-check-befor-submit" style="direction:ltr; text-align:right;width:150px" />
+                    </div>
+                        <div class="form-group">
+
+                            <input asp-for="Comment.PhotoId" value="@Model.PhotoId.Id" class="form-control empty-check-befor-submit" style="display:none " />
+                            <input asp-for="IdRoute" value="@Model.PhotoId.AlbumID" class="form-control empty-check-befor-submit" style="display:none " />
+
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Comment.Content">متن</label><br />
+                            <textarea asp-for="Comment.Content" class="form-control empty-check-befor-submit" style="direction:ltr; text-align:right;width:150px"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="CaptchaCode" placeholder="کد تصویر" class="form-control empty-check-befor-submit" style="direction:ltr; text-align:right;width:150px" />
+                            <br />
+                            <img src="@ViewBag.CaptchaImageInPhotosComment" />
+                        </div>
+
+                        <button id="" type="submit" class="btn btn-success">درج</button>
+                }
+            }
+
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+</div>

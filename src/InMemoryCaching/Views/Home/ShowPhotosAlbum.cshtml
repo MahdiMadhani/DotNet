@@ -1,0 +1,126 @@
+﻿@model InMemoryCaching.Models.PhotosAlbumViewModel
+@addTagHelper "*, Microsoft.AspNet.Mvc.TagHelpers"
+@{
+    Layout = "~/views/shared/_layout.cshtml";
+}
+
+@section scripts{
+    <script>
+
+        function ShowModal(PhotoId, AlbumID) {
+            $("#myModal").modal();
+            $("#PhotoId").val(PhotoId);
+            $("#AlbumID").val(AlbumID);
+            //$("#PhotoId").css("background-color", "red");
+
+        }
+
+
+    </script>
+}
+
+
+<div class="container">
+   
+
+    @{if (Model.Photo.Any())
+        {
+               
+            
+
+
+            <table class="table" id="tb" dir="rtl">
+                @ViewBag.i
+                <tbody>
+                    @{
+                        foreach (var item in Model.Photo)
+                        {
+
+                            <tr>
+                                <td>
+
+                                    <a href="#" title="ثبت نظر" style="text-decoration: none">
+                                        <img onclick="ShowModal(@item.Id,@item.AlbumID)" src="@Url.Content(@InMemoryCaching.App_Code.Utils.GenerateHttpResponseImageOntheFly(@item.ImgData, "jpg"))" class="img-circle" asp-append-version="true" width="150" height="150" style="border:1px solid gray;direction:ltr" alt="Profile Picture">
+                                    </a>
+                                    <a asp-controller="Home" asp-action="ShowPhotosComment" asp-route-id="@item.Id">مشاهد نظرات</a>
+
+                                </td>
+                                <td class="form-group"></td>
+                            </tr>
+
+                        }
+                    }
+                </tbody>
+
+            </table>
+                        }
+                        else
+                        {
+                            <h3 align="center" > برای این البوم هیچ عکسی درج نشده است</h3>
+
+                        }
+    }
+</div>
+
+
+
+
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog" dir="rtl">
+    <div class="modal-dialog" style="margin-top: 15%">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header"dir="ltr">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">ارسال نظر </h4>
+            </div>
+            <div class="modal-body">@Html.AntiForgeryToken()
+                @{
+                    using (Html.BeginForm("InsertCommentInPhotosAlbum", "home", FormMethod.Post))
+
+                    {
+                @Html.AntiForgeryToken()
+
+
+                <div class="form-group">
+                    <label asp-for="Comment.WriterEmail">ایمیل</label>
+                    <input asp-for="Comment.WriterEmail " placeholder="ایمیل" class="form-control empty-check-befor-submit" style="direction:ltr; text-align:right;width:150px" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Comment.WriterName">نام</label>
+                    <input asp-for="Comment.WriterName " placeholder="نام" class="form-control empty-check-befor-submit" style="direction:ltr; text-align:right;width:150px" />
+                </div>
+                <div class="form-group">
+
+                    <input id="PhotoId" asp-for="Comment.PhotoId" class="form-control empty-check-befor-submit" style="display:none " />
+                    <input id="AlbumID" asp-for="IdRoute" class="form-control empty-check-befor-submit" style="display:none " />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Comment.Content">متن</label>
+                    <textarea asp-for="Comment.Content" class="form-control empty-check-befor-submit" style="direction:ltr; text-align:right;width:150px"></textarea>
+                </div>
+                <div class="form-group">
+                    <input asp-for="CaptchaCode" placeholder="کد تصویر" class="form-control empty-check-befor-submit" style="direction:ltr; text-align:right;width:150px" />
+                    <br />
+                    <img src="@ViewBag.CaptchaImageInShowPhotosAlbum" />
+                </div>
+
+                <button id="" type="submit" class="btn btn-success">درج</button>
+                    }
+                }
+
+
+
+
+
+            </div>
+       
+        </div>
+
+    </div>
+</div>
+<!-- Modal -->

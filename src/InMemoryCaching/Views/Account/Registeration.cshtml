@@ -1,0 +1,107 @@
+﻿@model InMemoryCaching.Models.Account.RegisterationViewModel
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<br />
+<!-- Top content -->
+<div class="top-content">
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8  form-box">
+                    <div class="form-top" dir="rtl">
+                        <h3>ثبت نام</h3>
+                        <p>لطفا آدرس ایمیل و رمز عبور مورد نظر خود را وارد نمایید. با عضویت در سایت می توانید از خدمات ارائه شده بهره مند شوید.</p>
+                        <div class="form-top-right">
+                            <i class="fa fa-key"></i>
+                        </div>
+                    </div>
+                    @if (ViewBag.ErrorOccured != null && ViewBag.ErrorOccured)
+                    {
+                        <div dir="rtl" id="ucDivError" class="alert alert-danger" role="alert" style="margin-bottom: 0px;">
+                            @Html.Raw(ViewBag.HtmlFormattedMessage)
+                        </div>
+                    }
+                    <div class="form-bottom">
+                        @using (Html.BeginForm(FormMethod.Post, new { @class = "login-form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                                <div class="form-group">
+                                    @*<input asp-for="RoleId" type="hidden" value="@ViewBag.RoleId" />*@
+                                    <input asp-for="EmailAddress" placeholder="آدرس ایمیل" class="form-username form-control empty-check-befor-submit" style="direction:ltr; text-align:center" />
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input asp-for="FirstName" dir="rtl"  placeholder="نام" class="form-username form-control empty-check-befor-submit" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input asp-for="LastName" dir="rtl" placeholder="نام خانوادگی" class="form-username form-control empty-check-befor-submit" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input asp-for="Password" type="password"  dir="rtl" placeholder="رمز عبور" class="form-password form-control empty-check-befor-submit" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input asp-for="PasswordConfirm" type="password" dir="rtl" placeholder="تکرار رمز عبور" class="form-password form-control empty-check-befor-submit" id="form-passwordconfirm" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6" style="text-align: center">
+                                        <img src="@Url.Content(ViewBag.CaptchaImageAccountController)" width="200" height="60">   
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input asp-for="CaptchaCode"  dir="rtl" placeholder="عبارت موجود در تصویر" class="form-control empty-check-befor-submit" />
+                                        </div>
+                                    </div>
+                                </div>
+                                @*<center>
+                                    <div class="form-group">
+                                        <div class="g-recaptcha" data-sitekey="6LfL_BMTAAAAAPjIbL3Xg5ZZ61Wz80bV20MdeYXY"></div>
+                                    </div>
+                                </center>*@
+                                <button id="btnSubmit" type="submit" class="btn btn-success">ورود</button>
+                                }
+                            </div>
+                </div>
+                <div class="col-sm-4 text-medium" style="margin-top:20px;">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <p>
+                                پس از تکمیل فرم ثبت نام، برای شما یک ایمیل حاوی لینک تایید ارسال خواهد شد 
+                            </p>
+                            <p>
+                                لازم بذکر است چنانچه ایمیل خود را تایید ننمایید از طرف سایت هیچگونه ایمیل دیگری برای شما ارسال نخواهد شد
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

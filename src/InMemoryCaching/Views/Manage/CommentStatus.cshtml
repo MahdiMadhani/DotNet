@@ -1,0 +1,78 @@
+﻿@model InMemoryCaching.Models.CommentViewModel
+@addTagHelper "*, Microsoft.AspNet.Mvc.TagHelpers"
+@{
+    Layout = "~/views/shared/_layout.cshtml";
+}
+
+<div class="container">
+    <form asp-controller="Manage" asp-action="CommentStatus" method="post" asp-antiforgery="true">
+
+@{if (Model.Comments.Count>0)
+    {
+
+        <table class="table table-hover" id="tb" style="max-width:">
+            <thead>
+                <tr>
+
+                    <th style="background-color:">محتوا</th>
+
+                    <th class="hidden-xs">ایمیل</th>
+
+                    <th>نام</th>
+
+                    <th></th>
+
+
+                    <th>نمایش</th>
+
+
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Comments.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            @Html.HiddenFor(x => x.Comments[i].Content)
+                            <textarea asp-for="@Model.Comments[i].Content" class="form-control empty-check-befor-submit" style="direction:ltr; text-align:right;width:150px"></textarea>
+                        </td>
+                        <td class="hidden-xs">
+                            @Html.HiddenFor(x => x.Comments[i].WriterEmail)
+                            @Model.Comments[i].WriterEmail
+                        </td>
+                        <td>
+                            @Html.HiddenFor(x => x.Comments[i].WriterName)
+                            @Model.Comments[i].WriterName
+                        </td>
+
+                        <td>
+                            @Html.HiddenFor(x => x.Comments[i].Id)
+
+                        </td>
+
+
+
+
+                        <td>
+                            <input asp-for="@Model.Comments[i].status" type="checkbox" />
+                        </td>
+
+                     
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <button type="submit"class="btn btn-success">اعمال تغییرات</button>
+    }
+    else
+    {
+
+        <h3 align="center">کاربران هنوز نظر نداده ان</h3>
+
+    }
+}
+    </form>
+</div>

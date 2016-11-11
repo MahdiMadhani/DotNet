@@ -1,0 +1,26 @@
+﻿@using System.Security.Claims
+
+
+@{ 
+    @if (User.Identity.IsAuthenticated)
+    {
+        <form asp-controller="Account" asp-action="Sinout" method="post" id="logoutForm" class="navbar-right">
+            <ul class="nav navbar-nav" style="background-color:">
+                <li>
+                    <a asp-controller="Account" asp-action="Sinout" title="Manage">خروج </a>
+                </li>
+                <li>
+                    <a asp-controller="" asp-action="" title="Manage">سلام @User.GetUserName()</a>
+                </li>
+            </ul>
+        </form>
+    }
+    else
+    {
+        <ul class="nav navbar-nav">
+            <li><a asp-controller="Account" asp-action="login" class="navbar-item">ورود</a></li>
+            <li><a asp-controller="Account" asp-action="Registeration" class="navbar-item">  ثبت نام  </a></li>
+            
+        </ul>
+    }
+}

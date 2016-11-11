@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net451": {
+      "bin": {
+        "assembly": "../../../../../../Desktop/External_Libs/FarsiLibrary.Resources.dll"
+      }
+    },
+    "dnx451": {
+      "bin": {
+        "assembly": "../../lib/dnx451/FarsiLibrary.Resources.dll"
+      }
+    }
+  }
+}

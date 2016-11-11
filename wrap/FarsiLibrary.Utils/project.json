@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "dnx451": {
+      "bin": {
+        "assembly": "../../lib/dnx451/FarsiLibrary.Utils.dll"
+      },
+      "dependencies": {
+        "FarsiLibrary.Resources": "1.0.0-*"
+      }
+    }
+  }
+}

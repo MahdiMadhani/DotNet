@@ -1,0 +1,36 @@
+﻿@model InMemoryCaching.Models.Album
+@addTagHelper "*, Microsoft.AspNet.Mvc.TagHelpers"
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <form asp-controller="Manage" asp-action="CreateAlbum" method="post" asp-antiforgery="true"
+          class="dropzone" id="UploadForm" enctype="multipart/form-data">
+        <div class="col-md-6 col-sm-12  form-box" style="direction:rtl">
+
+            <div class="form-group">
+                @if (TempData["ErrorMessage"] != null)
+            {
+
+                    <h3 class="text-danger">@TempData["ErrorMessage"].ToString()</h3>
+
+                }
+                <h2> ایجاد البوم جدید  </h2>
+            </div>
+            <div class="form-group">
+                <label asp-for="Titel">عنوان</label>
+                <input asp-for="Titel " placeholder="عنوان" class="form-control empty-check-befor-submit" style="direction:ltr; text-align:right;width:150px" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Titel">انتخاب عکس</label>
+                <input name="Productphoto_file" type="file" />
+            </div>
+
+            <button id="btnSubmit" type="submit" class="btn btn-success">درج</button>
+        </div>
+
+    </form>
+
+</div>

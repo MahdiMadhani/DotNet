@@ -1,0 +1,30 @@
+{
+  "locked": false,
+  "version": 2,
+  "targets": {
+    "DNX,Version=v4.5.1": {
+      "FarsiLibrary.Resources/1.0.0": {
+        "type": "project",
+        "framework": "DNX,Version=v4.5.1"
+      }
+    },
+    "DNX,Version=v4.5.1/win7-x86": {
+      "FarsiLibrary.Resources/1.0.0": {
+        "type": "project",
+        "framework": "DNX,Version=v4.5.1"
+      }
+    }
+  },
+  "libraries": {
+    "FarsiLibrary.Resources/1.0.0": {
+      "type": "project",
+      "path": "../FarsiLibrary.Resources/project.json"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "": [],
+    "DNX,Version=v4.5.1": [
+      "FarsiLibrary.Resources >= 1.0.0-*"
+    ]
+  }
+}

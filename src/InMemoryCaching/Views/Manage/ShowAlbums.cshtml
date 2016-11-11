@@ -1,0 +1,130 @@
+﻿@model IEnumerable< InMemoryCaching.Models.Album>
+@addTagHelper "*, Microsoft.AspNet.Mvc.TagHelpers"
+@{
+    Layout = "~/views/shared/_layout.cshtml";
+}
+
+@section scripts{
+    <script>
+
+        function h(idd) {
+            //alert(idd);
+            var form = $('#__AjaxAntiForgeryForm');
+            var token = $('input[name="__RequestVerificationToken"]', form).val();
+            var DeleteArray = idd//; alert(DeleteArray);
+            var data = {
+            }
+            // e.preventDefault();
+            var ch = confirm("میخواهید البوم رو حذف کنید؟");
+            if (ch) {
+                $.ajax({
+
+                    type: "POST",
+                    dataType: 'json',
+                    url: "/Manage/DeleteAlbums" + '/' + DeleteArray,
+                    data: data,
+
+                    success: function (data) {
+                        //bootbox.alert("تغییرات ذخیره شد");
+                        // console.log(data.message);
+                        // $('#result2').html(data);
+                        //alert('#' + idd);
+                        $('#' + idd).parent().parent().remove();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        //  alert("خطایی در زمان ذخیره سازی اطلاعات رخ داده است");
+                    }
+                });
+            }
+        }
+    </script>
+}
+<div class="container">
+    <form asp-controller="Manage" asp-action="ShowAlbums" method="post" asp-antiforgery="true"
+          class="dropzone" id="UploadForm" enctype="multipart/form-data">
+
+
+        <table class="table table-hover" id="tb">
+
+            <tbody>
+                @{foreach (var item in Model)
+                    {
+                <tr>
+                    <td style="background-color:">
+                        @*<img src="@Url.Content(@InMemoryCaching.App_Code.Utils.GenerateHttpResponseImageOntheFly(@item.AssetData, "jpg"))" class="img-circle" asp-append-version="true" width="150" height="150" style="border:1px solid gray;direction:ltr" alt="Profile Picture">*@
+
+
+                        @*<img src="@Url.Content(@InMemoryCaching.App_Code.Utils.GenerateHttpResponseImageOntheFly(@item.AssetData, "jpg"))"class="img-rounded" asp-append-version="true" width="150" height="150" style="border:1px solid gray;direction:ltr" alt="Profile Picture">*@
+
+                        <img src="@item.Src" class="img-rounded" asp-append-version="true" width="150" height="150" style="border:1px solid gray;direction:ltr" alt="Profile Picture">
+                    </td>
+                    <td style="background-color: ;direction:rtl ">
+                      
+                            <b>البوم
+
+                                @item.Titel
+                               
+                            </b>
+
+                        <br />
+                        <br />
+                        <a asp-controller="Manage" asp-action="Edit" asp-route-id="@item.Id">ویرایش</a>
+                        <a href="#" id="@item.Id" onclick="h(@item.Id)" style="margin:0px 10px 0px 10px"> حذف</a>
+                        <a asp-controller="Manage" asp-action="CreatePhotosAlbum" asp-route-id="@item.Id"> مدیریت عکس ها</a>
+
+                        
+
+                    </td>
+                </tr>
+                        } }
+            </tbody>
+        </table>
+
+    </form>
+</div>
+     <!--
+        <div style="background-color:red" onclick="hd()" id="kk">>jjjjjj</div>
+    onclick="del(item.Id)" script
+
+            $(document).ready(function () {
+
+                $("#cc").on("click", function (e) {
+
+                    var form = $('#__AjaxAntiForgeryForm');
+                    var token = $('input[name="__RequestVerificationToken"]', form).val();
+                    var DeleteArray = 1003;
+                    var data = {
+
+
+                    }
+                    e.preventDefault();
+                    $.ajax({
+
+                        type: "POST",
+                        dataType: 'json',
+                        url: "/Manage/DeleteAlbums" + '/' + DeleteArray,
+                        data: data,
+
+                        success: function (data) {
+                            //bootbox.alert("تغییرات ذخیره شد");
+                            // console.log(data.message);
+                            // $('#result2').html(data);
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            alert("خطایی در زمان ذخیره سازی اطلاعات رخ داده است");
+                        }
+                    });
+                    // alert("g");
+
+
+                });// $("#cc")
+                function f() {
+                    alert("h");
+
+                };
+
+            });///document
+    script
+
+    http://www.codeguru.com/csharp/.net/net_asp/mvc/article.php/c20139/Confirming-Delete-Operations-in-ASPNET-MVC.htm
+        -->

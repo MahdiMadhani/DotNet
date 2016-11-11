@@ -1,0 +1,374 @@
+﻿@model InMemoryCaching.Models.PhotosAlbumViewModel
+@using System.Xml
+@addTagHelper "*, Microsoft.AspNet.Mvc.TagHelpers"
+@{
+    Layout = "~/views/shared/_layout.cshtml";
+}
+
+@section scripts{
+    <script type="text/javascript">
+
+
+
+        $(function () {
+            var id;var h;
+            $('#BtnMore').on("click", function (e) {
+                e.preventDefault();
+                $("#BtnMore").css("display", "none");
+                $("#wait").css("display", "block");
+                // var b = $("#SumImagesInAjax").val()
+                //  alert($("#SumImagesInAjax").val());
+                $.ajax({
+                    type: "GET",
+                    dataType: 'json',
+                    url: "/home/MoreImage" + '/' + (($("#SumImagesInAjax").val())),
+                    success: function (data) {
+                        if (data != null) {
+                            $(data).each(function (index, item) {
+                                //id = 3;
+                               // h = item.idd.Split(',').toString();
+                                // alert(item.Id);
+                                h = null;
+                                h = "/Home/ShowPhotosComment/" + item.Id;
+                               // alert(h);
+                                id = item.idd;
+                                $('#rr').append('<div class="col-lg-4 col-md-4 col-xs-6"><a href="' + h + '"><img style="" class="thumbnail img-responsive" alt="Bootstrap template"  src="' + item.Src + '"></img></a></div>')
+
+                            });
+                            id = ($("#SumImagesInAjax").val()) + id;
+
+                            //id = ($("#SumImagesInAjax").val()) + id;
+                            $("#SumImagesInAjax").val(id);
+                            $("#BtnMore").css("display", "block");
+                            $("#wait").css("display", "none");
+                        }
+                        else {
+                            $("#wait").css("display", "none");
+                            $("#BtnMore").css("display", "none");
+                            //alert()
+
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        //  alert("خطایی  رخ داده است");
+                    }
+                });
+
+            });
+
+            $(window).on("load", function () {
+                ScrollRespansiv();
+
+
+
+                //w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+                ////if (w < 700) {
+
+                ////    document.getElementById("rr").style.width = (w - 2) + "px";
+                ////}
+                //////var wd = document.getElementById("rr").style.width = "600px";
+                ////// document.getElementById("rr").style.width="1200px";
+                //alert(w);
+
+                //if (w < 836) {
+                //    alert(w + " 4");
+                //    document.getElementById("rr").style.width = "303px"; //"760px";
+                //}
+                //if (836<w && w< 1015) {
+                //    alert(w + " 3");
+                //    document.getElementById("rr").style.width = "800px";
+                //}
+                //if (1015<w && w< 1200) {
+                //    alert(w+" 2");
+                //    document.getElementById("rr").style.width = "1000px";
+                //}
+                //if (1200 < w ) {
+                //    alert(w+" 1");
+                //    document.getElementById("rr").style.width = "1200px";
+                //}
+
+
+              
+
+
+
+
+
+
+                var usageList = []
+                @foreach (var item in Model.Photo)
+            {
+                <text>usageList.push('@item.Id');
+                </text>
+            }
+
+                // alert(usageList.toString());
+                $("#SumImagesInAjax").val(usageList.toString());
+
+                // alert($("#SumImagesInAjax").val() );
+
+            });
+
+
+
+        });
+        $(document).ready(function () {
+
+            $(window).resize(function () {
+                ScrollRespansiv();
+            });
+        });
+
+        function ScrollRespansiv()
+        {
+            var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+            var ch_div_section_1_change_size_div_3_width = 0.98;
+            var summ_div_section_1_change_size_div_3_width = 0;
+            //  alert(w);
+
+            if (w < 1200) {
+                if (1200 > w && w > 1111) {
+                    //     alert(w + " 7")
+                    $("#rr").css({ 'width': 1050 + "px" });
+                }
+                if (1111 > w && w > 995) {
+                    //     alert(w);
+                      summ_div_section_1_change_size_div_3_width = ((w - 303) * (ch_div_section_1_change_size_div_3_width)) + 180;
+                         $("#rr").css({ 'width': 990 + "px" });
+                    //  alert(summ_div_section_1_change_size_div_3_width);
+                      //  $("#rr").attr('style', 'min-width:300px');
+                  }
+                  if (995 > w && w > 850) {
+                      //   alert(w + " 6")
+                      summ_div_section_1_change_size_div_3_width = ((w - 303) * (ch_div_section_1_change_size_div_3_width)) + 190;
+                      $("#rr").css({ 'width': summ_div_section_1_change_size_div_3_width + "px" });
+                      // alert(summ_div_section_1_change_size_div_3_width);
+                      //  $("#rr").attr('style', 'min-width:300px');
+                  }
+                  if (850 > w && w > 817) {
+                      //    alert(w + " 5")
+                      summ_div_section_1_change_size_div_3_width = ((w - 303) * (ch_div_section_1_change_size_div_3_width)) + 270;
+                      $("#rr").css({ 'width': summ_div_section_1_change_size_div_3_width + "px" });
+                      // alert(summ_div_section_1_change_size_div_3_width);
+                      //  $("#rr").attr('style', 'min-width:300px');
+                  }
+                  if (817 > w && w > 784) {
+                      //       alert(w + " 4")
+                    summ_div_section_1_change_size_div_3_width = ((w - 303) * (ch_div_section_1_change_size_div_3_width)) + 287;
+                    $("#rr").css({ 'width': summ_div_section_1_change_size_div_3_width + "px" });
+                   // alert(summ_div_section_1_change_size_div_3_width);
+                    //  $("#rr").attr('style', 'min-width:300px');
+                }
+                if (784 > w && w > 350) {
+                    //   alert(w + " 3")
+                    // document.getElementById("rr").style.width = "1200px";
+                    summ_div_section_1_change_size_div_3_width = ((w - 303) * (ch_div_section_1_change_size_div_3_width)) + 303;
+                    $("#rr").css({ 'width': summ_div_section_1_change_size_div_3_width + "px" });
+                    // alert(summ_div_section_1_change_size_div_3_width);
+                    //  $("#rr").attr('style', 'min-width:300px');
+                    //  document.getElementById("rr").style.width = 549 + 303 + "px";
+                }
+                if (350 > w && w > 320) {
+                    //  alert(w + " 2")
+                    // document.getElementById("rr").style.width = "1200px";
+                    summ_div_section_1_change_size_div_3_width = ((w - 303) * (ch_div_section_1_change_size_div_3_width)) + 300;
+                    $("#rr").css({ 'width': summ_div_section_1_change_size_div_3_width + "px" });
+                    // alert(summ_div_section_1_change_size_div_3_width);
+                    //  $("#rr").attr('style', 'min-width:300px');
+                    //  document.getElementById("rr").style.width = 549 + 303 + "px";
+                }
+
+
+                if (320 > w) {
+                  //  alert(w + " 1")
+
+                    $("#rr").css({ 'width': 304 + "px" });
+                    //summ_div_section_1_change_size_div_3_width = ((w - 303) * (ch_div_section_1_change_size_div_3_width)) + 300;
+                    //$("#rr").css({ 'width': summ_div_section_1_change_size_div_3_width + "px" });
+                    //// alert(summ_div_section_1_change_size_div_3_width);
+                    ////  $("#rr").attr('style', 'min-width:300px');
+                }
+
+
+                //else {
+                //    //  alert(w+"h")
+                //    $("#rr").css({ 'width': 304 + "px" });
+                //}
+
+
+
+              }
+               else
+              {
+                //  alert(w + " 1")
+                // $("#rr").css({ 'width': 1050 + "px" });
+                  $("#rr").css({ 'width': 1190 + "px" });
+
+              }
+
+        }
+
+
+        $(document).ready(function () {
+            $("#testimonials").carousel({
+                interval: 6000
+            });
+
+            $("#testimonials").carousel("cycle");
+        });
+    </script>
+
+    <style>
+        .carousel-inner > .item > img,
+        .carousel-inner > .item > a > img {
+            width: 70%;
+            margin: auto;
+        }
+    </style>
+}
+
+
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2" style="background-color:">
+
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
+
+            <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="10000" style="background-color:">
+                @{if (Model.Album.Any())
+                    {
+                <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            @{var ig = -1;
+                                foreach (var image in Model.Album)
+                                {
+
+                                    <li data-slide-to="@(++ig)" data-target="#myCarousel" class="@(ig == 0 ? "active" : "")"></li>
+
+                                }
+                            }
+
+                        </ol>
+
+                <!-- Wrapper for slides -->
+                                <div class="carousel-inner" role="listbox">
+                                    @{
+                                        var i = 0;
+                                        foreach (var item in Model.Album)
+                                        {
+                                            var itemClass = i++ == 0 ? "item active" : "item";
+                                            <div class="@itemClass">
+                                                <a asp-controller="Home" class="col-lg-12 col-md-12 col-xs-12" asp-action="ShowPhotosAlbum" asp-route-id="@item.Id">
+
+                                                    <img alt="image" class="img-responsive" src="@item.Src">
+                                                </a>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                                        }
+                                        else
+                                        {
+                                            <ol class="carousel-indicators">
+                                                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                                <li data-target="#myCarousel" data-slide-to="1"></li>
+
+                                            </ol>
+                                                <div class="carousel-inner" role="listbox">
+                                                    <div class="item active">
+                                                        <img src="~/images/Desktop.jpg" alt="" class="img-responsive" />
+                                                        <div class="carousel-caption">
+                                                            <p>
+                                                                Desktop
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="item">
+                                                        <img src="~/images/Desktop Wallpa.jpg" alt="" class="img-responsive" />
+                                                        <div class="carousel-caption">
+                                                            <p>
+                                                                Desktop Wallpa
+
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                        } }
+                <!-- Left and right controls -->
+                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+        <div class="hidden-xs  hidden-sm col-md-3 col-lg-3 circle" style="background-color:gainsboro;color:black;text-align: justify;direction:rtl;font-size:14px">
+            <b  style="color:blue">
+                تازهای  تصاویر باشگاه خبرنگاران جوان
+            </b>
+              @{
+                <table>
+
+                    @foreach (var item in ViewBag.FBFeed)
+
+                    {
+
+                        <tr>
+
+                            <td>
+                                <hr />
+                                <b>@item.Title</b><a href="@item.Link" target="_blank"> بیشتر </a>
+
+                                @Html.Raw(item.Description)
+                         
+
+                            </td>
+
+                        </tr>
+
+                    }
+
+                </table>
+
+
+            }
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="text-center">
+            <h1>  </h1>
+        </div>
+        <div class="row" id="rr" style="background-color:">
+            @{foreach (var item in Model.Photo)
+                {
+                    <div class="col-xs-6 col-md-4 col-lg-4">
+                        <a  asp-controller="Home" asp-action="ShowPhotosComment" asp-route-id="@item.Id">
+
+                            <img style="" class="thumbnail img-responsive" alt="Bootstrap template" src="@item.Src" />
+                            </a>
+                    </div>
+
+
+                }
+            }
+        </div>
+    </div>
+    <br />
+    <div id="SumImagesInAjax" style="display:none;min-width:100px;min-height:100px "></div>
+    <a href="#" id="BtnMore"style="width:70px">تصاویر بیشتر</a>
+    <img id="wait" src="~/images/loading_icon.gif" style="display:none;width:100px;height:100px " />
+
+</div>
+
+

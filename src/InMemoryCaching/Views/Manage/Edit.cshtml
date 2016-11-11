@@ -1,0 +1,81 @@
+﻿@model InMemoryCaching.Models.Album
+@addTagHelper "*, Microsoft.AspNet.Mvc.TagHelpers"
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+
+    <form asp-controller="Manage" asp-action="Edit" method="post" asp-antiforgery="true"
+          class="dropzone" id="UploadForm" enctype="multipart/form-data">
+        <div class="col-md-6 col-sm-12  form-box" style="direction:rtl">
+
+            <div class="form-group">
+                @if (TempData["ErrorMessage"] != null) {
+
+                    <h3 class="text-danger">@TempData["ErrorMessage"].ToString()</h3>
+
+                }
+
+
+                <h2> ویرایش البوم   </h2>
+            </div>
+            <div class="form-group">
+                <label asp-for="Titel">عنوان</label>
+                <input asp-for="Titel" placeholder="@Model.Titel" class="form-control empty-check-befor-submit" style="direction:ltr; text-align:right;width:150px" />
+            </div>
+            <div class="form-group">
+                <img asp-for="AssetData" src="@Url.Content(@InMemoryCaching.App_Code.Utils.GenerateHttpResponseImageOntheFly(@Model.AssetData, "jpg"))" class="img-circle" asp-append-version="true" width="150" height="150" style="border:1px solid gray;direction:ltr" alt="Profile Picture">
+            </div>
+            <div class="form-group">
+
+                <label asp-for="Titel">انتخاب عکس جدید</label>
+                <input name="Productphoto_file" type="file" value="hh" />
+
+
+            </div>
+
+            <button id="btnSubmit" type="submit" class="btn btn-success">ویرایش</button>
+        </div>
+    </form>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,72 @@
+﻿@model IEnumerable<InMemoryCaching.Models.Photo>
+@addTagHelper "*, Microsoft.AspNet.Mvc.TagHelpers"
+@{
+    Layout = "~/views/shared/_layout.cshtml";
+}
+
+
+<div class="container">
+    <form asp-controller="Manage" asp-action="ShowAlbums" method="post" asp-antiforgery="true"
+          class="dropzone" id="UploadForm" enctype="multipart/form-data">
+        <div style="direction:rtl">
+            <a asp-controller="Manage" asp-action="CreatePhotosAlbum" asp-route-id="@ViewBag.RouteShowPhotosAlbumAlbumId">
+
+                اضافه کردن عکس جدید به البوم
+                @ViewBag.AlbumTitell
+
+            </a>
+        </div>
+        @{if (Model.Count() >0)
+            {
+
+
+
+                var i = 1;
+                foreach (var item1 in Model)
+                {
+                    if (i == 1)
+                    {
+                        <h4 dir="rtl" style="text-align:center">
+                            البوم
+                            @item1.Album.Titel
+                        </h4>
+                        i = 2;
+                    }
+
+                }
+
+                
+                <table class="table table-hover" id="tb">
+                    <thead>
+                        <tr>
+                            <th>عکس</th>
+                            <th style="text-align:right">عنوان</th>
+
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var item in Model)
+                            {
+                        <tr>
+                            <td>                               
+                                <img src="@Url.Content(@InMemoryCaching.App_Code.Utils.GenerateHttpResponseImageOntheFly(@item.ImgData, "jpg"))" class="img-circle" asp-append-version="true" width="150" height="150" style="border:1px solid gray;direction:ltr" alt="Profile Picture">
+                            </td>
+                            <td class="form-group" style="text-align:right">
+                                @item.Titel
+                            </td>
+                        </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+                            }
+                            else
+                            {
+                                <div align="center">عکسی برای این البوم درج نشده است </div>
+
+                            }
+        }
+    </form>
+</div>

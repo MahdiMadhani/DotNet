@@ -1,0 +1,81 @@
+﻿@model InMemoryCaching.Models.Account.RoleViewModel
+@addTagHelper "*, Microsoft.AspNet.Mvc.TagHelpers"
+@{
+    Layout = "~/views/shared/_layout.cshtml";
+}
+
+<div class="container">
+    <form asp-controller="Manage" asp-action="PermissionUsers" method="post" asp-antiforgery="true">
+
+        @{if (Model.users.Count() > 0)
+            {
+
+                <table class="table table-hover" id="tb">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>نام</th>
+                            <th>نام خانوادگی</th>
+                            <th class="hidden-xs">ایمیل</th>
+                            <th>نوع دسترسی</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       
+                            @for (int i = 0; i < Model.users.Count; i++)
+                            {
+                                <tr>
+
+                                    <td>
+                                        @*<input asp-for="@Model.users[i].UserId" type=""  value="@Model.users[i].UserId" />*@
+
+                                        @Html.HiddenFor(x => x.users[i].UserId)
+                                    </td>
+                                    <td>
+                                        @Html.HiddenFor(x => x.users[i].FirstName)
+                                        @Model.users[i].FirstName
+
+                                        @*<input asp-for="@Model.users[i].FirstName" type=""  value="@Model.users[i].FirstName" />
+                                            @Model.users[i].FirstName*@
+
+                                    </td>
+                                    <td>
+                                        @*<input asp-for="@Model.users[i].LastName" type=""  value="@Model.users[i].LastName" />
+                                            @Model.users[i].LastName*@
+
+                                        @Html.HiddenFor(x => x.users[i].LastName)
+                                        @Model.users[i].LastName
+                                    </td>
+                                    <td class="hidden-xs">
+                                        @*<input asp-for="@Model.users[i].EmailAddress" type="" value="@Model.users[i].EmailAddress" />
+                                            @Model.users[i].EmailAddress*@
+
+                                        @Html.HiddenFor(x => x.users[i].EmailAddress)
+                                        @Model.users[i].EmailAddress
+
+                                    </td>
+                                    <td>
+                                    
+                                        <select  class="form-control input-sm" asp-for="@Model.users[i].RoleId" asp-items="@(new SelectList(Model.Roles,"RoleId","Rolename") )"></select>
+
+                                    </td>
+
+                                </tr>
+                            }
+                        
+
+                    </tbody>
+                
+                </table>
+
+                    <button type="submit" class="btn btn-success">اعمال تغییرات</button>
+                            }
+                            else
+                            {
+
+                                <div style="background-color:">dont image</div>
+
+                            }
+        }
+    </form>
+</div>
