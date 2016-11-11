@@ -1,0 +1,46 @@
+{
+  "version": "1.0.0-*",
+  "compilationOptions": {
+    "emitEntryPoint": true
+  },
+  "dependencies": {
+    "InMemoryCaching": "1.0.0"
+  },
+  "commands": {
+    "web": "Microsoft.AspNet.Server.Kestrel",
+    "ef": "EntityFramework.Commands",
+    "run": "run"
+  },
+  "frameworks": {
+    "dnx451": {
+      "dependencies": {
+        "FarsiLibrary.Resources": "1.0.0-*",
+        "FarsiLibrary.Utils": "1.0.0-*"
+      },
+      "frameworkAssemblies": {
+        "System.XML": "4.0.0.0",
+        "System.Net": "4.0.0.0",
+        "System.Drawing": "4.0.0.0",
+        "System.Xml.Serialization": "4.0.0.0"
+      }
+    }
+  },
+  "exclude": [
+    "wwwroot",
+    "node_modules"
+  ],
+  "publishExclude": [
+    "**.user",
+    "**.vspscc"
+  ],
+  "scripts": {
+    "prepublish": [
+      "npm install",
+      "bower install",
+      "gulp clean",
+      "gulp min"
+    ]
+  },
+  "entryPoint": "InMemoryCaching",
+  "loadable": false
+}

@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>InMemoryCaching</name>
+    </assembly>
+    <members>
+        <member name="M:InMemoryCaching.App_Code.Utils.LoadToMemoryStream(System.IO.Stream)">
+            <summary>
+            Read a stream which is comming from IFromFile interface
+            </summary>
+            <param name="sr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InMemoryCaching.App_Code.Utils.ConvertMemoryStreamToBytes(System.IO.MemoryStream)">
+            <summary>
+            
+            </summary>
+            <param name="ms"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InMemoryCaching.App_Code.Utils.GenerateHttpResponseImageOntheFly(System.Byte[],System.String)">
+            <summary>
+            Creates HTTP response compatible response based on given raw image content
+            </summary>
+            <param name="imageType">it can be gif, jpeg, bmp</param>
+            <returns></returns>
+        </member>
+        <member name="M:InMemoryCaching.App_Code.Utils.VerifyPassword(System.String,System.String)">
+            <summary>
+            Verify the user - entered password against a stored password
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
